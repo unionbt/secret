@@ -14,6 +14,5 @@
     define('WWW_PATH', $_SERVER[SERVER_NAME]);
 
 
-    require_once ROOT.'/themes/union_start.php';
+    require_once ROOT.'/themes/secret_start.php';
     
-    echo "this is secret";
