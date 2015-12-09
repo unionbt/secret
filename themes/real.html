@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>实名认证</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+
+            <form method="post" action="index.php?page=user&act=real&val=set">
+                <div>
+                    <div>
+                        认证姓名：<input type="text" name="name" /></div>
+                    <div>
+                        证件类型:<select style="width: 100px;" name=card_type> 
+                            <option value='身份证'>身份证</option>
+                            <option value='驾驶证'>驾驶证</option>
+                            <option value='港澳通行证'>港澳通行证</option>
+                            <option value='护照'>护照</option>
+                        </select>
+                        证件号码<input type="text" name="card_id" /></div>
+                    <div>
+                        上传手持证件照片正面：<input type="file" name="card_img" />
+                        上传手持证件照片反正：<input type="file" name="card_img_2" />
+                    </div>
+                        <div>
+                            <input type="radio" name="agree" value="我同意私人定制平台实名认证的条款">我同意私人定制平台实名认证的条款
+                        </div>
+                        <input type="submit" value="提交" >
+                        <input type="reset" value="清除" >
+                    </div>
+                
+                
+            </form>
+        </div>
+    </body>
+</html>

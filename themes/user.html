@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>个人中心</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <h6>用户图像:<?= $show_data['u_img']; ?></h6>
+            <h6>用户名:<?= $show_data['u_name']; ?></h6>
+            <h6>用户 ID:<?= $show_data['uid']; ?></h6>
+            <img src="<?= $show_data[r_img]; ?>" />
+            <h6>电话号码:<?= $show_data['u_phone']; ?></h6>
+            <h6>取货地址:<?= $show_data['u_add']; ?></h6>
+            <h6>性别:<?= $show_data['u_sex']; ?></h6>
+            <h6>等级：<img src="<?= $show_data[level]; ?>" /></h6>
+        </div>
+        
+        全部订单:<?= $order['all']; ?>
+        待付款：<?= $order['dfk']; ?>
+        
+        
+        <div>
+            <a href="index.php?page=user&act=real&val=write">实名认证</a>
+            <a href="index.php?page=user&act=logout">退出</a>
+        </div>
+    </body>
+</html>
