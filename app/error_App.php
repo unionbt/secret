@@ -25,10 +25,12 @@
 				case '3':
 					$err = '数据库连接错误';
 					return $err;
-                                    case '4':
+                                case '4':
                                         $err = '用户不存在,请核对用户名';
                                         return $err;
-
+                                case 'user_reg':
+                                        $err = '注册不成功';
+                                        return $err;
 				default:
 					$err = '您请求的页面未找到，404';
 					return $err;

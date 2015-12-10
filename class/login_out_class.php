@@ -58,14 +58,23 @@
         }
         
        public static function wirteData(){
+           //连接数据库
            $dbLink = new db_union_mysql();
-           $uid=$dbLink->db_select_id('u_user', USER, '创建新用户');
-           echo $uid;
-           $wirte = $dbLink->db_inset('u_user', '', self::$data['name']);
+           //创建全局id索引表
+           $id=$dbLink->db_select_id('u_user', 'user_reg',HOST_USER, '创建新用户');
+           if($id['ok']){
+               $db = self::$data;
+               $id['ok'] = $dbLink->db_inset('u_user', '', "$id[id],NULL,'$db[name]',$db[u_phone],
+                       NULL,NULL,NULL,'$db[pass]','0.png',1,'$db[sex]',0,now(),'127.0.0.1'");
+           }  else {
+               $writeErr = new error_App('user_reg');
+           }
            
-           
-           
-           $dbLink->db_closemysql($dbLink);
+           //注册成功，执行写入操作并关闭数据库
+           $dbLink->db_closemysql($dbLink,$id['ok']);
+           //转入个人中心
+           $_SESSION['uid'] = $id['id'];
+           return $id;
        }
         
         

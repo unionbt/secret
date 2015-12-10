@@ -25,49 +25,7 @@
             return mysql_query($v);
         }
 
-//简化sql语句涵数
-//关闭数据库
-        function db_closemysql($link, $row) {
-            $this->db_begin('end', $row);
-            return mysql_close($link);
-        }
-
-        //功能类的集合  
-        //创建数据表
-
-        function db_maketable($name, $zhiduan) {
-            $new_db = "CREATE TABLE $name($zhiduan) or die('操作失败'.mysql_error())";
-            $this->db_query($new_db);
-        }
-
-        //获取全局唯一ID，操作db_id 表
-        function db_select_id($value, $who, $zhusi) {
-            
-            $max_num = $this->db_read_max_pid('db_id'); //查找全局唯一自增主键的最大ID号//
-            $max_id = $max_num['id'];                    //并判断它是否已接近该值，并发出提示//
-            
-            if ($max_id < BIGNUM) {
-                $num = TRUE;
-                while ($num) {
-                    $rand_num = rand(10000, 999999999);
-                    $num = $this->db_read('db_id', 'num','num',"$rand_num");
-                    //如果随机数是唯一的，查表没有重复的，则状态指示器关闭//
-                }
-
-                //写入数据库,并用 OK 记录操作成功与否的状态
-                self::$return = $this->db_inset('db_id', '', "0,$rand_num,'$value','$who',now(),'$zhusi'") ? TRUE : FALSE;
-
-                //提取刚生成的记录的自增 ID
-                $result = $this->db_query("SELECT last_insert_id()");
-                $res = mysql_fetch_array($result);
-                $new_id = $res[0];
-                //创建成功，返回全局唯一id和pid
-                return $new_num = array(id => $new_id, num => $rand_num, ok => self::$return);
-            } else {
-                die('数据库超限，请扩容');
-            }
-        }
-
+        
         //开启数据库锁行
         function db_begin($option, $val) {
             switch ($option) {
@@ -85,15 +43,42 @@
             }
         }
 
+        
+        
+        
+//简化sql语句涵数
+//关闭数据库
+        function db_closemysql($link, $row) {
+            $this->db_begin('end', $row);
+            return mysql_close($link);
+        }
+
+        //功能类的集合  
+        //创建数据表
+
+        function db_maketable($name, $zhiduan) {
+            $new_db = "CREATE TABLE $name($zhiduan) or die('操作失败'.mysql_error())";
+            $this->db_query($new_db);
+        }
+
+        //获取全局唯一ID，在db_id表里记录一个值，并返回该id号
+        function db_select_id($linkTab,$type, $who, $zhusi) {
+            
+            //写入数据库,并用 $return 记录操作成功与否的状态 来确定数据执行还是回滚？
+            self::$return = $this->db_inset('db_id', '', "0,'$linkTab','$type','$who',now(),'$zhusi'") ? TRUE : FALSE;
+                //提取刚生成的记录的自增 ID
+                $result = mysql_fetch_array($this->db_query("SELECT last_insert_id()"));
+                //创建成功，返回全局唯一id和pid
+                return $new_id = array('id' => $result[0], 'ok' => self::$return);
+        }
+
         //写入数据
         function db_inset($biao, $name = '', $value = '') {
             //判断有没有字段值
             if (!$name) {
-                //echo '没有传入参数类型'.'<br />';
 //                echo "INSERT INTO $biao VALUES ($value)";
                 self::$return = $this->db_query("INSERT INTO $biao VALUES ($value)");// or die('操作失败' . mysql_error());
             } else {
-                //echo '传入了参数类型'.'<br />';
 //                echo "INSERT INTO $biao ($name) VALUES ($value)";
                 self::$return = $this->db_query("INSERT INTO $biao ($name) VALUES ($value)");// or die('操作失败' . mysql_error());
             }
@@ -128,17 +113,6 @@
             }
             
             }
-
-
-        //读取最大的pid;
-        function db_read_max_pid($biao, $num = '') {
-            //先取最大的id,从而得到最大的pid字段的值，并返回pid的值；
-            $max_num = $this->db_read($biao, 'max(id)');
-            $max_id = $max_num['0'];
-//            $max_pid = $this->db_read($biao, $num,'id',"$max_id") or die('读取最大 num 失败' . mysql_error());
-//            $max_m = $max_pid[$num];
-            return $max = array(id => $max_id, $num => $max_m);
-        }
 
         //根据给定条件$value修改$table中的$id字段的值
         function db_edit($table, $value, $id) {

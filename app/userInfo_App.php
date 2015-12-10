@@ -22,14 +22,18 @@
                         break;
                     case 'logout':login_App::logout();
                         break;
-
-                    default :self::User_Begin();
+                    case 'info':
+                            echo 'ok';
+                            self::User_Begin();
+                        break;
+                    default :echo '找不到要操作的程序';
                         break;
                 }
             }
         }
 
         private static function User_Begin() {
+            echo '1';
             //加载用户中心核心模块，实例化该对象
             $abc = new user_Mod();
             //取用户中心的基本数据,并存储在user 数组中，包含：用户名 id 图像，性别，实名认证状态

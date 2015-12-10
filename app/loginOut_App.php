@@ -47,6 +47,10 @@
         public static function regsiter() {
             $secret_user = new login_out_Mod();
             $user=$secret_user->regsiter();
+            if($user['ok']){
+                $user['act'] = 'info';
+                $user = new user_App($user);
+            }
         }
 
     }
