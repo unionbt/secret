@@ -3,17 +3,21 @@
     //新闻模块的控制器
     class News_App {
         
-        private $id;		//新闻id
+        private $id; //新闻id
         public $data;
         private $temp;
 
 
 
-    	function __construct($arr){
+    	function __construct($val){
 
-    		$this->id   = explode('.',$arr[0])[0];
-
+                if(!$val){
+                    echo '新闻列表页';
+                }  else {
+                    $this->id   = explode('.',$val[0])[0];
     		$this->getNews($this->id);
+                }
+    		
     	}
 
 
@@ -23,7 +27,7 @@
 
     	}
 
-        function __destruct(){
+        function news_view(){
             $data       = $this->data;
             include ROOT.DS.VIEW.DS.'news.php';
         }

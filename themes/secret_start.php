@@ -18,19 +18,17 @@
     //分析网址，获取传参
     $request = new path();
     $rel = $request->set_path();
-
+    
     
     //如果网址带有有参数
     if($rel[0]){
-
-        //网址的格式为   /控制器/参数1-参数2-参数3-参数4/控制器/参数1-参数2-参数3-参数4/
         //提取第一个传参，读取控制器名称，并检测其合法性
-
         //$action 保存为第一个执行的控制器
         $action = array_shift($rel).'_App';
 
         //如果不是一个正确的控制器，则输出一个1号错误；并返回
         if(class_exists($action)){
+            //如果控制器正确，则带入后面的传数，传参一般为单一参数或多重参数，当为多重参数时，传参的数组为二维数组
             $app = new $action($rel);
             return;
         }else{
@@ -40,4 +38,5 @@
 }
 
     //加载主页
-    new home_App();
+    $secret = new home_App();
+    $secret->run();

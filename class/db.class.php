@@ -135,8 +135,8 @@
             //先取最大的id,从而得到最大的pid字段的值，并返回pid的值；
             $max_num = $this->db_read($biao, 'max(id)');
             $max_id = $max_num['0'];
-            $max_pid = $this->db_read($biao, $num,'id',"$max_id") or die('读取最大 num 失败' . mysql_error());
-            $max_m = $max_pid[$num];
+//            $max_pid = $this->db_read($biao, $num,'id',"$max_id") or die('读取最大 num 失败' . mysql_error());
+//            $max_m = $max_pid[$num];
             return $max = array(id => $max_id, $num => $max_m);
         }
 

@@ -9,7 +9,8 @@
         public $temp;
         private static $order;
         private static $o_type;
-                function __construct($option) {
+        
+        function __construct($option) {
             //判断有没有登录，没有则转到登录
             if (empty($_SESSION['uid'])) {
                 new login_App();

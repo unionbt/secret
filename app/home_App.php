@@ -6,9 +6,10 @@
         public $home_page;
         public $tmpData;
 
-        function __construct() {
+        function run() {
             $this->home_page='home.php';
             $this->getData();
+            $this->home_view();
         }
 
         //加载头部
@@ -18,7 +19,7 @@
             $this->tmpData = 'loveyou union';
         }
         //显示视图
-        function __destruct() {
+        function home_view() {
             $data=  $this->tmpData;
             include ROOT . DS . VIEW . DS . "$this->home_page";
         }
