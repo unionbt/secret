@@ -35,17 +35,13 @@
        
         public static function logout() {
             session_unset();
-            $page = new path();
-            $uri = $page->make_path();
-            header("Location: $uri");
+            self::jump_page();
         }
         
         public static function login(){
             $secret_user = new login_out_Mod();
             if($secret_user->login()){
-                $url = new path();
-                $url = $url->make_path('user,index');
-                header("Location: $url");   
+                self::jump_page('user,index');
             }
             
         }
@@ -54,10 +50,15 @@
             
             $secret_user = new login_out_Mod();
             if($user=$secret_user->regsiter()){
-                $url = new path();
-                $url = $url->make_path('user,index'); 
-                header("Location: $url");         
+                self::jump_page('user,index'); 
             }
+        }
+        
+        
+        private static function jump_page($url){
+            $http_uri = new path();
+            $http_uri = $http_uri->make_path($url); 
+            header("Location: $http_uri");  
         }
 
     }
