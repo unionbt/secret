@@ -16,44 +16,6 @@
             return $db_conn;
         }
 
-
-        //用户注册
-        public function regsiter($data) {            
-
-            //获取 id 和 num ...num 是数据库编码，他是局唯一
-            $db_id = $db_conn->db_select_id('user_reg', HOST_USER, '自然用户注册的新用户');
-            $this->setdata();
-            $data = self::$data;
-
-            //向 user 表中写入新用户信息
-            if ($db_user = $db_conn->db_inset('user', '', "$db_id[num],null,'$data[name]',$data[u_phone],"
-                    . "null,null,null,'$data[pass]','','0',$data[sex],null,now()")) {
-                $_SESSION['uid'] = $db_id['num'];
-                
-                //创建用户目录
-                global $usdir;
-                $dir = ROOT.DS.US.DS."$data[name]";
-                
-                if(!is_dir($dir)){
-                    for($i=0;$i<count($usdir);$i++){
-                        $newdir= $dir.DS."$usdir[$i]";
-                        fileupload::create_folders($newdir);
-                    }
-                    
-                }
-                //创建成功，注册成功就跳转到个人中心页面
-                new user_App;
-            } else {
-                echo "注册失败，未能往数据库中写入数据";
-            }
-
-            //关闭数据库
-            $db_conn->db_closemysql($db_conn, $db_user);
-        }
-
-        //用户登录
-
-
         //个人中心
 
 
@@ -111,9 +73,8 @@
             $db_conn = new db_union_mysql();
 
             //从 session[uid]里获取数据库内的用户基本信息
-            $data = $db_conn->db_read('user', '', 'uid', "$_SESSION[uid]");
+            $data = $db_conn->db_read('u_user', '', 'uid', "$_SESSION[uid]");            
             $data = self::setData($data);
-
             return $data;
         }
 

@@ -99,7 +99,7 @@
                 }
             } elseif (!$type) {
                 //在表中按字段的值查表，返回的是按字段值匹配的整行的数据；
-                // echo "SELECT * FROM $biao WHERE $value='$val'";
+//                 echo "SELECT * FROM $biao WHERE $value='$val'";
                 $read_sql = $this->db_query("SELECT * FROM $biao WHERE $value='$val'") or die('按字段查找失败' . mysql_error());
             } else {
                 //在参数匹配行数据，但只返回指定的字段数据，如$type仅指定了user_name,user_pid，则仅返回查找到的行中的user_name和user_pid的值；

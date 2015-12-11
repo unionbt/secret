@@ -31,6 +31,9 @@
                                 case 'user_reg':
                                         $err = '注册不成功';
                                         return $err;
+                                case 'loginErr':
+                                        $err = '密码错误';
+                                        return $err;
 				default:
 					$err = '您请求的页面未找到，404';
 					return $err;

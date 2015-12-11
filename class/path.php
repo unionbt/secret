@@ -8,7 +8,7 @@
 		public $uri;
 
 		//获取网址传参
-		function set_path(){
+		public function set_path(){
 			
 			//获取域名后的传参，一般格式为 控制器/参数/控制器/参数/控制器/参数1&参数2.html
                         //当参数中带 '&'字符时，说明有1个以上的参数
@@ -30,7 +30,7 @@
                                 $this->uri[$key] = $tmp;
                             }   
                         }
-			
+                        
 			//返回参数
 			return $this->uri;
 
@@ -38,8 +38,18 @@
 
 
 		//生成网址
-		function make_path($value){
-
+		public function make_path($url){
+                    if($url){
+                        $uri = explode(',', $url);
+                        for($i = 0;$i < count($uri);$i++){
+                            $www .= DS.$uri[$i];
+                        }
+                        $www .= '.html';
+                    }  else {
+                        $www = WWW_PATH;
+                    }
+                    
+                    return $www;
 			
 
 

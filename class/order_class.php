@@ -15,12 +15,14 @@
 
         //查看订单
         public function o_read($rows) {
-            $relset= $this->dblink->db_read('`order`', '', 'uid', "$this->uid",$rows);
+            $relset= $this->dblink->db_read('un_order', '', 'uid', "$this->uid",$rows);
+            //如果读到订单，则用$temp存储订单信息，然后返回数据
             if($rows){
             while ($row = mysql_fetch_array($relset)) {
                 $temp[] = $row;
             }
             return $temp;
+            //否则，返回为假
         }  else {
             return $relset;
         }

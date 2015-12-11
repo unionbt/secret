@@ -33,23 +33,30 @@
             }
         }
        
-
         public static function logout() {
             session_unset();
-            new home_App();
+            $page = new path();
+            $uri = $page->make_path();
+            header("Location: $uri");
         }
         
         public static function login(){
             $secret_user = new login_out_Mod();
-            $user=$secret_user->login();
+            if($secret_user->login()){
+                $url = new path();
+                $url = $url->make_path('user,index');
+                header("Location: $url");   
+            }
+            
         }
         
         public static function regsiter() {
+            
             $secret_user = new login_out_Mod();
-            $user=$secret_user->regsiter();
-            if($user['ok']){
-                $user['act'] = 'info';
-                $user = new user_App($user);
+            if($user=$secret_user->regsiter()){
+                $url = new path();
+                $url = $url->make_path('user,index'); 
+                header("Location: $url");         
             }
         }
 

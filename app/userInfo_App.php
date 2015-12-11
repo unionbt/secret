@@ -11,20 +11,19 @@
         private static $o_type;
         
         function __construct($option) {
+                       
             //判断有没有登录，没有则转到登录
             if (empty($_SESSION['uid'])) {
                 new login_App();
             } else {
-
                 //如果动作响应为退出，则调用 login_App 中的 logout 方法，否则，开始根据 session[uid]提取用户数据
-                switch ($option['act']) {
+                switch ($option[0]) {
                     case 'real':self::real($option['val']);
                         break;
                     case 'logout':login_App::logout();
                         break;
-                    case 'info':
-                            echo 'ok';
-                            self::User_Begin();
+                    case 'index':
+                        self::User_Begin();
                         break;
                     default :echo '找不到要操作的程序';
                         break;
@@ -33,7 +32,6 @@
         }
 
         private static function User_Begin() {
-            echo '1';
             //加载用户中心核心模块，实例化该对象
             $abc = new user_Mod();
             //取用户中心的基本数据,并存储在user 数组中，包含：用户名 id 图像，性别，实名认证状态

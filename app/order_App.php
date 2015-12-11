@@ -14,7 +14,6 @@
         public function r_order($rows){
             
             $this->data = $this->o_mod->o_read(1);
-            var_dump($this->data);
         }
 
 
