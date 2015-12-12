@@ -25,7 +25,7 @@
 				case '3':
 					$err = '数据库连接错误';
 					return $err;
-                                case '4':
+                                case 'no_user':
                                         $err = '用户不存在,请核对用户名';
                                         return $err;
                                 case 'user_reg':
