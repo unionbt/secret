@@ -40,8 +40,9 @@
         
         public static function login(){
             $secret_user = new login_out_Mod();
-            if($secret_user->login()){
-                self::jump_page('user,index');
+            $login = $secret_user->login();
+            if($login['ok']){
+                self::jump_page("$login[act],index");
             }
             
         }

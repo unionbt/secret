@@ -3,8 +3,8 @@
 class login_out_Mod {
 
     private static $data;
-    private static $tab = array('tab' => 'u_user','uid' => 'uid',
-                                'name' => 'u_name','phone' => 'u_phone','pass' => 'u_pass');
+    private static $tab = array('tab'   => 'u_user' , 'uid'   => 'uid' ,
+        'name'  => 'u_name' , 'phone' => 'u_phone' , 'pass'  => 'u_pass' , 'act'   => 'user');
 
 //登录
     public function login() {
@@ -35,7 +35,7 @@ class login_out_Mod {
 //获取数据
     public static function getData() {
         $dbLink = new db_union_mysql();
-        
+
         $db = TRUE;
         while ($db) {
             while ($db_id = $dbLink->db_read(self::$tab['tab'] , '' , self::$tab[uid] , self::$data['name'])
@@ -46,11 +46,12 @@ class login_out_Mod {
                 $db = FALSE;
                 break;
             }
-            self::$tab = $tab = array('tab' => 'admin','uid' => 'admin_id','name' => 'admin_name',
-                                        'phone' => 'admin_phone','pass' => 'admin_pass');
+            self::$tab = array('tab'   => 'admin' , 'uid'   => 'admin_id' ,
+                'name'  => 'admin_name' , 'phone' => 'admin_phone' , 'pass'  => 'admin_pass' , 'act'   => 'admin');
         }
         $dbLink->db_closemysql($dbLink);
-        return $login;
+
+        return $login = array('act' => self::$tab['act'] , 'ok' => $login);
     }
 
 //格式化获取到的数据
@@ -63,7 +64,7 @@ class login_out_Mod {
 
 //数据比较，用于用户登录鉴权等
     public static function db_with( $val ) {
-    if (self::$data['pass'] == $val[self::$tab['pass']]) {
+        if (self::$data['pass'] == $val[self::$tab['pass']]) {
             $_SESSION['uid'] = $val[self::$tab['uid']];
             $_SESSION['login'] = 1;
             return TRUE;
