@@ -12,7 +12,7 @@
 class admin_App {
 
     function __construct( $val ) {
-
+        echo 'index';
         
     }
 

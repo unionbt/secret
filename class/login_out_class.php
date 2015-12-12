@@ -4,7 +4,7 @@ class login_out_Mod {
 
     private static $data;
     private static $tab = array('tab'   => 'u_user' , 'uid'   => 'uid' ,
-        'name'  => 'u_name' , 'phone' => 'u_phone' , 'pass'  => 'u_pass' , 'act'   => 'user');
+        'name'  => 'u_name' , 'phone' => 'u_phone' , 'pass'  => 'u_pass');
 
 //登录
     public function login() {
@@ -47,11 +47,11 @@ class login_out_Mod {
                 break;
             }
             self::$tab = array('tab'   => 'admin' , 'uid'   => 'admin_id' ,
-                'name'  => 'admin_name' , 'phone' => 'admin_phone' , 'pass'  => 'admin_pass' , 'act'   => 'admin');
+                'name'  => 'admin_name' , 'phone' => 'admin_phone' , 'pass'  => 'admin_pass');
         }
         $dbLink->db_closemysql($dbLink);
 
-        return $login = array('act' => self::$tab['act'] , 'ok' => $login);
+        return $login;
     }
 
 //格式化获取到的数据
@@ -67,6 +67,7 @@ class login_out_Mod {
         if (self::$data['pass'] == $val[self::$tab['pass']]) {
             $_SESSION['uid'] = $val[self::$tab['uid']];
             $_SESSION['login'] = 1;
+            $_SESSION['team'] = $val['u_team'];
             return TRUE;
         } else {
             $loginErr = new error_App('loginErr');

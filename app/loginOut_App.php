@@ -39,10 +39,20 @@
         }
         
         public static function login(){
+            global $user_type;
             $secret_user = new login_out_Mod();
-            $login = $secret_user->login();
-            if($login['ok']){
-                self::jump_page("$login[act],index");
+            
+            if($secret_user->login()){
+                echo $_SESSION['team'];
+                foreach ($user_type as $key => $val){
+                    
+                    if($_SESSION['team'] >= 1){
+                        self::jump_page("user,index");
+                    }else {
+                        self::jump_page('admin,index');
+                }
+                }
+                
             }
             
         }
