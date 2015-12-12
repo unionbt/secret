@@ -35,9 +35,13 @@
         //获取数据
         public static function getData() {
             $dbLink = new db_union_mysql();            
+            //如果是数字帐号登录
             if (!$db_dataUid = $dbLink->db_read('u_user', 'uid,u_name,u_pass', 'uid', self::$data['name'])) {
+                //如果是用户名登录
                 if (!$db_dataU_name = $dbLink->db_read('u_user', 'uid,u_name,u_pass', 'u_name', self::$data['name'])) {
+                    //如果是手机号登录
                     if (!$db_dataU_phone = $dbLink->db_read('u_user', 'uid,u_name,u_pass', 'u_phone', self::$data['name'])) {
+                        //如果都没有查到，则登录名错误
                         $error = new error_App('4');
                     } else {
                         $login = self::db_with($db_dataU_phone);
