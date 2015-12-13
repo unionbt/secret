@@ -11,16 +11,14 @@
 
 class admin_App {
 
-    function __construct( $val ) {
-        echo 'index';
-        
+    public function __construct($act) {
+        self::$act[0]($act);
     }
-
-    
-
+            
     //超级管理员后台首页
-    private static function admin() {
-        echo '显示首页';
+    private static function index( $val ) {
+         //登录成功后，首先获取公司财务帐号
+         self::view();
     }
 
     //用户管理
@@ -56,6 +54,11 @@ class admin_App {
     //文件管理
     private static function admin_file() {
         
+    }
+    
+    private static function view() {
+        
+        include_once ROOT . DS.VIEW.DS.'admin.html';
     }
 
 }
